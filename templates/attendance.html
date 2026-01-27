@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Manager</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        input, button {
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+<h2>Welcome, {{ username }}</h2>
+<h3>Attendance</h3>
+
+<input type="text" id="subjectName" placeholder="Enter subject name">
+<button onclick="addSubject()">Add Subject</button>
+
+<table>
+    <thead>
+    <tr>
+        <th>Subject</th>
+        <th>Total</th>
+        <th>Present</th>
+        <th>Percentage</th>
+        <th>Action</th>
+    </tr>
+</thead>
+
+    <tbody id="subjectTable"></tbody>
+</table>
+
+<!-- ✅ JAVASCRIPT GOES HERE -->
+<script>
+function loadSubjects() {
+    fetch("/api/subjects/")
+        .then(res => res.json())
+        .then(data => {
+            let table = document.getElementById("subjectTable");
+            table.innerHTML = "";
+
+            data.forEach(sub => {
+    let percentage = sub.total === 0
+        ? "0%"
+        : ((sub.present / sub.total) * 100).toFixed(2) + "%";
+
+    table.innerHTML += `
+        <tr>
+            <td>${sub.name}</td>
+            <td>${sub.total}</td>
+            <td>${sub.present}</td>
+            <td>${percentage}</td>   <!-- ✅ NEW -->
+            <td>
+                <button onclick="markPresent('${sub.name}')">Present</button>
+                <button onclick="markAbsent('${sub.name}')">Absent</button>
+                <button onclick="deleteSubject('${sub.id}')">Delete</button>
+            </td>
+        </tr>
+    `;
+});
+
+        });
+}
+
+function addSubject() {
+    let name = document.getElementById("subjectName").value;
+
+    if (!name) {
+        alert("Enter subject name");
+        return;
+    }
+
+    fetch("/api/add/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ name: name })
+    })
+    .then(res => res.json())
+    .then(() => {
+        document.getElementById("subjectName").value = "";
+        loadSubjects();
+    })
+    .catch(err => console.error(err));
+}
+
+function markPresent(subject) {
+    fetch("/api/mark/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ subject: subject, status: "Present" })
+    }).then(loadSubjects);
+}
+
+function markAbsent(subject) {
+    fetch("/api/mark/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ subject: subject, status: "Absent" })
+    }).then(loadSubjects);
+}
+
+function deleteSubject(id) {
+    if (!confirm("Are you sure you want to delete this subject?")) return;
+
+    fetch("/api/delete/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ id: id })
+    }).then(loadSubjects);
+}
+
+loadSubjects(); // 🔥 VERY IMPORTANT
+</script>
+
+</body>
+</html>
