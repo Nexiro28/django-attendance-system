@@ -1,3 +1,4 @@
+/* ===== RESET & GLOBAL ===== */
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
@@ -5,61 +6,89 @@
 
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #4f46e5, #9333ea);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 16px; /* important for mobile */
 }
 
+/* ===== AUTH CONTAINER ===== */
 .auth-box {
     background: white;
-    width: 350px;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 360px; /* mobile-friendly */
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     text-align: center;
 }
 
+/* ===== HEADING ===== */
 .auth-box h2 {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     color: #333;
+    font-size: 22px;
 }
 
+/* ===== INPUTS ===== */
 .auth-box input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 16px; /* important for mobile zoom prevention */
 }
 
+/* ===== BUTTON ===== */
 .auth-box button {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 12px;
+    margin-top: 12px;
     background: #4f46e5;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .auth-box button:hover {
     background: #4338ca;
 }
 
+.auth-box button:active {
+    transform: scale(0.98);
+}
+
+/* ===== LINK ===== */
 .auth-box a {
     display: block;
-    margin-top: 15px;
+    margin-top: 16px;
     text-decoration: none;
     color: #4f46e5;
     font-weight: bold;
+    font-size: 14px;
 }
 
+/* ===== ERROR MESSAGE ===== */
 .error {
     color: red;
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 14px;
+}
+
+/* ===== TABLET & UP ===== */
+@media (min-width: 768px) {
+    .auth-box {
+        padding: 30px;
+    }
+
+    .auth-box h2 {
+        font-size: 24px;
+    }
 }
