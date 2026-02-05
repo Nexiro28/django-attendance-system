@@ -7,7 +7,7 @@
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(120deg, #f4f6f9, #e9edf3);
-    padding: 30px;
+    padding: 20px;
     color: #2c3e50;
 }
 
@@ -20,45 +20,56 @@ h2 {
 
 h3 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-weight: 500;
     color: #34495e;
 }
 
 /* ===== Input & Button Area ===== */
+.input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
 input[type="text"] {
-    width: 65%;
-    padding: 10px;
+    flex: 1;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 16px; /* mobile zoom fix */
 }
 
 button {
-    padding: 10px 14px;
-    margin-left: 5px;
+    padding: 12px 16px;
     border: none;
     border-radius: 6px;
     background-color: #1e88e5;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.1s ease;
 }
 
 button:hover {
     background-color: #1565c0;
-    transform: translateY(-1px);
 }
 
 button:active {
-    transform: translateY(0);
+    transform: scale(0.97);
+}
+
+/* ===== Table Wrapper (IMPORTANT FOR MOBILE) ===== */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
 }
 
 /* ===== Table Styling ===== */
 table {
     width: 100%;
-    margin-top: 25px;
+    min-width: 520px; /* allows horizontal scroll on phones */
+    margin-top: 15px;
     border-collapse: collapse;
     background: white;
     border-radius: 8px;
@@ -88,10 +99,11 @@ tbody tr:nth-child(even) {
 
 /* ===== Action Buttons inside Table ===== */
 td button {
-    padding: 6px 10px;
-    font-size: 12px;
-    margin: 2px;
-    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin: 3px;
+    border-radius: 5px;
+    min-width: 70px;
 }
 
 /* Present Button */
@@ -118,24 +130,31 @@ td button:nth-child(3):hover {
     background-color: #8e0000;
 }
 
-/* ===== Mobile Responsive ===== */
+/* ===== MOBILE (≤600px) ===== */
 @media (max-width: 600px) {
-    input[type="text"] {
-        width: 100%;
-        margin-bottom: 10px;
+
+    body {
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    .input-row {
+        flex-direction: column;
     }
 
     button {
         width: 100%;
-        margin: 5px 0;
-    }
-
-    table {
-        font-size: 12px;
     }
 
     td button {
         width: 100%;
-        margin: 3px 0;
+        margin: 4px 0;
     }
 }
