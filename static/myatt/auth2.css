@@ -1,0 +1,141 @@
+/* ===== Global Reset ===== */
+* {
+    box-sizing: border-box;
+}
+
+/* ===== Body Styling ===== */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #f4f6f9, #e9edf3);
+    padding: 30px;
+    color: #2c3e50;
+}
+
+/* ===== Headings ===== */
+h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+    color: #34495e;
+}
+
+/* ===== Input & Button Area ===== */
+input[type="text"] {
+    width: 65%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 14px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 6px;
+    background-color: #1e88e5;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #1565c0;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ===== Table Styling ===== */
+table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+th {
+    background-color: #1e88e5;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* Alternate row color */
+tbody tr:nth-child(even) {
+    background-color: #f9fbfd;
+}
+
+/* ===== Action Buttons inside Table ===== */
+td button {
+    padding: 6px 10px;
+    font-size: 12px;
+    margin: 2px;
+    border-radius: 4px;
+}
+
+/* Present Button */
+td button:nth-child(1) {
+    background-color: #2e7d32;
+}
+td button:nth-child(1):hover {
+    background-color: #1b5e20;
+}
+
+/* Absent Button */
+td button:nth-child(2) {
+    background-color: #f57c00;
+}
+td button:nth-child(2):hover {
+    background-color: #e65100;
+}
+
+/* Delete Button */
+td button:nth-child(3) {
+    background-color: #c62828;
+}
+td button:nth-child(3):hover {
+    background-color: #8e0000;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 600px) {
+    input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    td button {
+        width: 100%;
+        margin: 3px 0;
+    }
+}

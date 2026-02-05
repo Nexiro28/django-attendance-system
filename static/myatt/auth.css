@@ -4,23 +4,34 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     margin: 0;
     min-height: 100vh;
     background: linear-gradient(135deg, #4f46e5, #9333ea);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px; /* important for mobile */
+
+    padding: 16px;
+    padding-bottom: env(safe-area-inset-bottom); /* iOS safe area */
 }
 
 /* ===== AUTH CONTAINER ===== */
 .auth-box {
     background: white;
+
     width: 100%;
-    max-width: 360px; /* mobile-friendly */
+    max-width: 360px;
+    min-width: 280px;
+
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 14px;
+
     box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     text-align: center;
 }
@@ -35,24 +46,30 @@ body {
 /* ===== INPUTS ===== */
 .auth-box input {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin: 12px 0;
-    border-radius: 6px;
+
+    border-radius: 8px;
     border: 1px solid #ccc;
-    font-size: 16px; /* important for mobile zoom prevention */
+
+    font-size: 16px; /* prevents mobile zoom */
 }
 
 /* ===== BUTTON ===== */
 .auth-box button {
     width: 100%;
-    padding: 12px;
-    margin-top: 12px;
+    padding: 14px;
+    margin-top: 14px;
+
     background: #4f46e5;
     color: white;
+
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
+
     font-size: 16px;
     font-weight: bold;
+
     cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease;
 }
@@ -62,15 +79,17 @@ body {
 }
 
 .auth-box button:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
 /* ===== LINK ===== */
 .auth-box a {
     display: block;
-    margin-top: 16px;
+    margin-top: 18px;
+
     text-decoration: none;
     color: #4f46e5;
+
     font-weight: bold;
     font-size: 14px;
 }
@@ -82,10 +101,23 @@ body {
     font-size: 14px;
 }
 
+/* ===== VERY SMALL PHONES ===== */
+@media (max-width: 360px) {
+    .auth-box {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .auth-box h2 {
+        font-size: 20px;
+    }
+}
+
 /* ===== TABLET & UP ===== */
 @media (min-width: 768px) {
     .auth-box {
         padding: 30px;
+        max-width: 380px;
     }
 
     .auth-box h2 {
