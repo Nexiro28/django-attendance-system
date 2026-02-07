@@ -68,17 +68,21 @@ def attendance_view(request):
 
 
 # ---------- APIs ----------
-
 def get_subjects(request):
+    if not request.session.get("user"):
+        return JsonResponse([], safe=False)
+
     data = []
-    for s in subjects_col.find():
+    for s in subjects_col.find({"username": request.session["user"]}):
         data.append({
             "id": str(s["_id"]),
             "name": s["name"],
             "total": s["total"],
             "present": s["present"]
         })
+
     return JsonResponse(data, safe=False)
+
 
 @csrf_exempt
 def add_subject(request):
@@ -89,6 +93,7 @@ def add_subject(request):
         body = json.loads(request.body)
 
         subjects_col.insert_one({
+            "username": request.session["user"],  # 🔑 LINK TO USER
             "name": body["name"],
             "total": 0,
             "present": 0
@@ -118,7 +123,10 @@ def mark_attendance(request):
         update["$inc"]["present"] = 1
 
     subjects_col.update_one(
-        {"name": data["subject"]},
+        {
+            "name": data["subject"],
+            "username": request.session["user"]  # 🔒 USER SAFETY
+        },
         update
     )
 
@@ -133,7 +141,8 @@ def delete_subject(request):
     body = json.loads(request.body)
 
     subjects_col.delete_one({
-        "_id": ObjectId(body["id"])
+        "_id": ObjectId(body["id"]),
+        "username": request.session["user"]  # 🔐 USER CHECK
     })
 
     return JsonResponse({"status": "deleted"})
